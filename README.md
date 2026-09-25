@@ -7,6 +7,7 @@
 This program will take in RGB values of 2 or 3 colors, user's choice, and then tell them whether or not they have a distinguishable difference.
 This program isn't perfect because it can only handle up to 3 colors at once, and doesn't account for alpha in RGBa.
 This program is equipped with some form of fault tolerance in which when an incorrect data type in put into a loop it won't infinitely loop.
+The way this program calculates the difference is by using the Euclidean RGB color distance formula. It doesn't account for brightness but it is quite accurate.
 
 
 ## Developer

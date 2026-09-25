@@ -68,14 +68,15 @@ int main(){
 
             // RGB Input Validation Armor
             if (cin.fail()) {
-                cin.clear(); 
-                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-                cout << "\nOops! You entered a letter or symbol instead of a number." << endl;
-                cout << "Okay let's start over from the beginning at 2 color mode.\n" << endl;
-                reset = 'n'; 
+                cin.clear(); // Reset cin's error state
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the bad input from stream.
+                cout << "\nOops! You entered a letter or symbol instead of a number." << endl; //Says what the user did wrong
+                cout << "Okay let's start over from the beginning at 2 color mode.\n" << endl; // Let's user know the program is going to restart back
+                reset = 'n'; // Reset the variable so the loop can start from the very beggining of if (colorOption == 2)
                 continue; // Skips the rest of the loop and restarts
             }
 
+            // Offers the user a restart to make sure that the user didn't accidentally enter values they didn't want
             cout << "Alright just to check the values you entered." << endl;
             cout << "First color values: " << firstR << " " << firstG << " " << firstB << endl;
             cout << "Second color values: " << secondR << " " << secondG << " " << secondB << endl;
@@ -90,13 +91,16 @@ int main(){
                 reset = 'N';
             }
 
+            // Letting the user know we're restarting
             if (reset == 'n' || reset == 'N')
             {
                 cout << "Okay let's start over from the beginning at 2 color mode." << endl;
             }
-        }while(reset == 'n' || reset == 'N');
+        } while(reset == 'n' || reset == 'N');
         // intensive math time. This is euclidean difference math. See ReadMe for details.
         dist12 = sqrt(((firstR - secondR) * (firstR - secondR)) + ((firstG - secondG) * (firstG - secondG)) + ((firstB - secondB) * (firstB - secondB)));
+
+        // Compares the distance between the set of colors and returns the proober response
         if (dist12 < 4.0)
         {
             cout << "STATUS: CRITICAL - Color one and two are almost identical. No normal eye can tell the difference." << endl;
@@ -128,13 +132,15 @@ int main(){
             
             // RGB Input Validation Armor
             if (cin.fail()) {
-                cin.clear(); 
-                cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
-                cout << "\nOops! You entered a letter or symbol instead of a number." << endl;
-                cout << "Okay let's start over from the beginning at 3 color mode.\n" << endl;
-                reset = 'n'; 
+                cin.clear(); // Reset cin's error state
+                cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Clear the bad input from stream.
+                cout << "\nOops! You entered a letter or symbol instead of a number." << endl; //Says what the user did wrong
+                cout << "Okay let's start over from the beginning at 3 color mode.\n" << endl; // Let's user know the program is going to restart back
+                reset = 'n'; // Reset the variable so the loop can start from the very beggining of if (colorOption == 3)
                 continue; // Skips the rest of the loop and restarts
             }
+
+            // Yet again another offer for the user to restart their RGB choices
             cout << "Alright just to check the values you entered." << endl;
             cout << "First color values: " << firstR << " " << firstG << " " << firstB << endl;
             cout << "Second color values: " << secondR << " " << secondG << " " << secondB << endl;
@@ -150,15 +156,18 @@ int main(){
                 reset = 'n';
             }
 
+            // Letting user know it's restarting beginning at 3 color mode
             if (reset == 'n' || reset == 'N')
             {
                 cout << "Okay let's start over from the beginning at 3 color mode." << endl;
             }
-        }while(reset == 'n' || reset == 'N');
+        } while(reset == 'n' || reset == 'N');
         // even fancier math since now we gotta compare 3 values instead of just 2
         dist12 = sqrt(((firstR - secondR) * (firstR - secondR)) + ((firstG - secondG) * (firstG - secondG)) + ((firstB - secondB) * (firstB - secondB)));
         dist13 = sqrt(((firstR - thirdR) * (firstR - thirdR)) + ((firstG - thirdG) * (firstG - thirdG)) + ((firstB - thirdB) * (firstB - thirdB)));
         dist23 = sqrt(((secondR - thirdR) * (secondR - thirdR)) + ((secondG - thirdG) * (secondG - thirdG)) + ((secondB - thirdB) * (secondB - thirdB)));
+
+        // Compares the distance between each 2 set of colors and returns the proober response
         if (dist12 < 4.0)
         {
             cout << "STATUS: CRITICAL - Color one and two are almost identical. No normal eye can tell the difference." << endl;
