@@ -1,14 +1,13 @@
-# Normal Color Vision Distinguisher V1.0    
+# Normal Color Vision Distinguisher V2.0    
 
 ## Description
 
-**version 1.0**
+**version 2.0**
 
-This program will take in RGB values of 2 or 3 colors, user's choice, and then tell them whether or not they have a distinguishable difference.
-This program isn't perfect because it can only handle up to 3 colors at once, and doesn't account for alpha in RGBa.
-This program is equipped with some form of fault tolerance in which when an incorrect data type in put into a loop it won't infinitely loop.
-The way this program calculates the difference is by using the Euclidean RGB color distance formula. It doesn't account for brightness but it is quite accurate.
-
+This program takes in 2-4 colors and their RGB values and 1 background RGB value. Then converts it to CIELAB and tells you the difference of the pairs of colors
+then it relay you the results and give you the option to print it out in a file in the form of a txt. This isn't the perfect one yet, there's still limitations
+because of CIE 76, the main equation I use, and limit to only 1 background color. This and many other things will be fixed/added in V3.0 in the future.
+I decided to remove the naming and focus more on logic, accuracy, and usuability.
 
 ## Developer
 
@@ -27,47 +26,133 @@ Here is an example of the program running:
 
 For 2-color mode
 ```
-Hello there user!
-What's your name?: H
-Great to meet you H, this is designed to tell if colors are different enough to see by the normal human eye.
-This program only supports up to 3 colors at once, and of course not just one.
-Futhermore, you need the RGB code of each color.
-How many colors will you input (pick 2 or 3): 2
-Great choice! Proceeding with 2 color mode.
-Input each RGB value of the first color (from 0-255) with a space inbetween. DO NOT separate by commas.
-0 0 0
-Alright then input the second color's RGB values with the same parameters.
-255 255 255
-Alright just to check the values you entered.
-First color values: 0 0 0
-Second color values: 255 255 255
-Was that correct? (y or n)
-Y
-STATUS: EXCELLENT - Giant difference. You'd have to either be color blind or just plain old blind to not see the difference between color one and two.
+Welcome to the color difference tester V2!
+How many colors would you like to compare? (2-4):
+2
+Background red (0-255):
+255
+Background green (0-255):
+255
+Background blue (0-255):
+255
+Background: 255 255 255
+Is that correct? (y/n):
+y
+Enter one value at a time.
+Color 1 red (0-255):
+0
+Color 1 green (0-255):
+0
+Color 1 blue (0-255):
+0
+Color 1 opacity (0-100):
+100
+Color 1: 0 0 0 at 100% opacity
+Is that correct? (y/n):
+y
+Color 2 red (0-255):
+255
+Color 2 green (0-255):
+255
+Color 2 blue (0-255):
+255
+Color 2 opacity (0-100):
+100
+Color 2: 255 255 255 at 100% opacity
+Is that correct? (y/n):
+y
+Results:
+(the number is the color difference, called Delta E: higher means easier to tell apart)
+Color 1 vs Color 2: 100 - EXCELLENT: These colors are VERY different and clearly distinguishable.
+Would you like to save these results to a file? (y/n):
+y
+Results saved to color_report.txt
+
+The saved color_report.txt for that run:
+
+==============================
+Color Difference Report
+Background: 255 255 255
+
+Colors entered: 
+Color 1: 0 0 0 at 100% opacity
+Color 2: 255 255 255 at 100% opacity
+
+Comparisons:
+Color 1 vs Color 2: 100 - EXCELLENT: These colors are VERY different and clearly distinguishable.
+
+Note: results assume typical color vision. (Color blind options coming in V3!)
 ```
-For 3-color mode
+3-color mode with transparency (the same red at 100%, 50%, and 0% opacity over a white background)
 ```
-Hello there user!
-What's your name?: H
-Great to meet you H, this is designed to tell if colors are different enough to see by the normal human eye.
-This program only supports up to 3 colors at once, and of course not just one.
-Futhermore, you need the RGB code of each color.
-How many colors will you input (pick 2 or 3): 3
-Great choice! Proceeding with 3 color mode.
-Input each RGB value of the first color (from 0-255) with a space inbetween. DO NOT separate by commas.
-0 0 0
-Alright then input the second color's RGB values with the same parameters.
-1 1 1
-Input the third color's RGB values with the same rules.
-50 50 50
-Alright just to check the values you entered.
-First color values: 0 0 0
-Second color values: 1 1 1
-Third color values: 50 50 50
-Was that correct? (y or n)
-Y
-STATUS: CRITICAL - Color one and two are almost identical. No normal eye can tell the difference.
-STATUS: EXCELLENT - Giant difference. You'd have to either be color blind or just plain old blind to not see the difference between color one and three.
-STATUS: EXCELLENT - Giant difference. You'd have to either be color blind or just plain old blind to not see the difference between color two and three.
-browser.cpp:~$ 
+Welcome to the color difference tester V2!
+How many colors would you like to compare? (2-4):
+3
+Background red (0-255):
+255
+Background green (0-255):
+255
+Background blue (0-255):
+255
+Background: 255 255 255
+Is that correct? (y/n):
+y
+Enter one value at a time.
+Color 1 red (0-255):
+255
+Color 1 green (0-255):
+0
+Color 1 blue (0-255):
+0
+Color 1 opacity (0-100):
+100
+Color 1: 255 0 0 at 100% opacity
+Is that correct? (y/n):
+y
+Color 2 red (0-255):
+255
+Color 2 green (0-255):
+0
+Color 2 blue (0-255):
+0
+Color 2 opacity (0-100):
+50
+Color 2: 255 0 0 at 50% opacity
+Is that correct? (y/n):
+y
+Color 3 red (0-255):
+255
+Color 3 green (0-255):
+0
+Color 3 blue (0-255):
+0
+Color 3 opacity (0-100):
+0
+Color 3: 255 0 0 at 0% opacity
+Is that correct? (y/n):
+y
+Results:
+(the number is the color difference, called Delta E: higher means easier to tell apart)
+Color 1 vs Color 2: 56.5496 - EXCELLENT: These colors are VERY different and clearly distinguishable.
+Color 1 vs Color 3: 114.559 - EXCELLENT: These colors are VERY different and clearly distinguishable.
+Color 2 vs Color 3: 62.2935 - EXCELLENT: These colors are VERY different and clearly distinguishable.
+Would you like to save these results to a file? (y/n):
+n
+```
+Example of bad input protection
+```
+Welcome to the color difference tester V2!
+How many colors would you like to compare? (2-4):
+abc
+That wasn't a number. Please try again.
+How many colors would you like to compare? (2-4):
+9
+Please enter a number from 2 to 4.
+How many colors would you like to compare? (2-4):
+2
+Background red (0-255):
+256
+Please enter a number from 0 to 255.
+Background red (0-255):
+255
 ```
