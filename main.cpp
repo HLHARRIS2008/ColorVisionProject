@@ -235,7 +235,7 @@ bool yesNoCheck(string prompt) {
   return result;
 }
 
-// Linearize is step 1 of CIELAB conversion. It takes one color channel scaled to 0-1 and returns it as linear light.
+// Step 1 of CIELAB conversion, Linearize. It takes one color channel scaled to 0-1 and returns it as linear light.
 // Screens store brightness on a curve so dark shades get more detail, so the stored number isn't proportional to the actual amount of light. This step undoes that curve.
 // These precise decimals come from the sRGB formula, they aren't mine.
 // If you google the sRGB formula and look at the higher R' values, you'll see where these fancy decimals come from
@@ -267,24 +267,24 @@ double labF(double t) {
 // scale 0 to 1 to remove the gamma curve (linearize) -> XYZ then we divide by the white point then we call labF which turns it into fx, fy, and fz and then finally L, a, and b.
 // rgb are pass by values and L, a, and b are pass by references so we don't need a return in this case.
 void convert_to_CIELAB(double red, double green, double blue, double &L, double &a, double &b) {
-  // 255 is the biggest value 8 bit can hold, so this goes from 0-255 to 0-1. 
+  // (Step 1) 255 is the biggest value 8 bit can hold, so this goes from 0-255 to 0-1. 
   double linearRed = linearize(red / 255.0);
   double linearGreen = linearize(green / 255.0);
   double linearBlue = linearize(blue / 255.0);
 
-  // XYZ is how much light a color has. Each line is a mix of R G and B light.
+  // (Step 2) XYZ is how much light a color has. Each line is a mix of R G and B light.
   // The weights come from sRGB standard and are rounded to 4 digits.
   // When you resolve these (if the color is white) X Y and Z will become the white point. (They resolve to the CONST values at the top).
   double x = 0.4124 * linearRed + 0.3576 * linearGreen + 0.1805 * linearBlue;
   double y = 0.2126 * linearRed + 0.7152 * linearGreen + 0.0722 * linearBlue;
   double z = 0.0193 * linearRed + 0.1192 * linearGreen + 0.9505 * linearBlue;
 
-  // Dividing by white point measures each value relative to white (white becomes ~1). Then labF turns it into the seen version.
+  // (Step 3) Dividing by white point measures each value relative to white (white becomes ~1). Then labF turns it into the seen version.
   double fx = labF(x / WHITE_X);
   double fy = labF(y / WHITE_Y);
   double fz = labF(z / WHITE_Z);
 
-  // These last constants are the CIE's definition of CIELAB, and they're just scaling
+  // (Step 4) These last constants are the CIE's definition of CIELAB, and they're just scaling
   // a comes from gap between fx and fy, b from fy and fz. This shows how far the color leans red vs green or yellow vs blue. 500 and 200 gives us a usable range (~ -128 to +127).
   L = 116.0 * fy - 16.0;
   a = 500.0 * (fx - fy);
